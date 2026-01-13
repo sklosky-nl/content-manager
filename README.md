@@ -13,16 +13,25 @@ A web-based system that aggregates event information from Wild Apricot and reser
 
 ## Quick Start
 
-### Using Docker (Recommended)
+### Production Deployment (Linux/Gunicorn)
+
+The application runs natively on Linux using Gunicorn WSGI server:
 
 ```bash
+# Install dependencies
 cd /home/sklosky/content-manager
-docker-compose -f docker/docker-compose.yml up -d
+pip install -r requirements.txt
+
+# Run with Gunicorn (production)
+gunicorn --bind 0.0.0.0:8000 --workers 2 --timeout 30 wsgi:app
+
+# Or use systemd service (recommended)
+sudo systemctl start content-manager
 ```
 
 The application will be available at `http://localhost:8000`
 
-### Manual Installation
+### Development Server
 
 ```bash
 cd /home/sklosky/content-manager
@@ -74,10 +83,11 @@ Default test feed URLs:
 
 ## Architecture
 
-- **Web Server**: Apache (already configured)
-- **Application Server**: Python Flask
-- **Data Sources**: Wild Apricot (HTML) and Skedda (iCal)
-- **Deployment**: Docker container on port 8000
+- **Web Server**: Apache (reverse proxy on ports 80/443)
+- **Application Server**: Gunicorn WSGI server (port 8000)
+- **Framework**: Python Flask
+- **Data Sources**: Wild Apricot JSON API and Skedda iCal
+- **Deployment**: Native Linux with systemd service management
 
 ## Project Structure
 
@@ -90,9 +100,10 @@ content-manager/
 │   ├── static/             # CSS, JS, images
 │   ├── utils/              # Utility modules
 │   └── config.py           # Configuration
-├── docker/                 # Docker files
 ├── requirements.txt        # Python dependencies
-└── wsgi.py                 # WSGI entry point
+├── wsgi.py                 # WSGI entry point (Gunicorn)
+├── run.py                  # Development server
+└── content-manager.service # systemd service file
 ```
 
 ## Notes

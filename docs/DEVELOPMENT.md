@@ -76,9 +76,9 @@ content-manager/
 │       └── error.html
 ├── tests/                       # Test files
 ├── docs/                        # Documentation
-├── docker/                      # Docker configuration
 ├── run.py                       # Development server entry point
 ├── wsgi.py                      # Production WSGI entry point
+├── content-manager.service      # systemd service file
 ├── requirements.txt             # Python dependencies
 ├── .gitignore                   # Git ignore rules
 └── README.md                    # Project overview

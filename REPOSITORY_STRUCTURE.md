@@ -65,10 +65,6 @@ content-manager/
 │   ├── DEPLOYMENT.md                      # Deployment guide
 │   └── DEVELOPMENT.md                     # Development guide
 │
-├── docker/                                 # Docker configuration
-│   ├── Dockerfile                         # Docker image definition
-│   └── docker-compose.yml                # Docker Compose configuration
-│
 ├── tests/                                  # Test files
 │   └── (test files to be added)
 │
@@ -102,8 +98,8 @@ Additional Files:
 ### Deployment
 - **Production Server**: Gunicorn WSGI server on port 8000
 - **Web Server**: Apache reverse proxy (ports 80/443)
-- **Service Management**: systemd service
-- **Docker Support**: Dockerfile and docker-compose.yml included
+- **Service Management**: systemd service (content-manager.service)
+- **Operating System**: Linux (Ubuntu/Debian)
 
 ## File Descriptions
 
