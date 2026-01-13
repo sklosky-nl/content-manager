@@ -1,0 +1,11 @@
+Flask==2.3.3
+gunicorn==21.2.0
+requests==2.31.0
+icalendar==5.0.11
+qrcode==7.4.2
+Pillow==10.1.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+python-dateutil==2.8.2
+pytz==2023.3
+

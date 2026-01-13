@@ -1,0 +1,36 @@
+# Credentials and sensitive files
+openvpn-credentials.md
+../openvpn-credentials.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+.env
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Backups and temporary files
+*.backup
+*.bak
+*.tar.gz
+*.zip
+*~
+
+# Logs
+*.log
+

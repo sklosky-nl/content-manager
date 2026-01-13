@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Events & Reservations - Print View{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/print.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="print-container">
+    <header class="print-header">
+        <h1>Nova Labs Events & Reservations</h1>
+        <p class="print-date">Printed: {{ "now"|date("%Y-%m-%d %H:%M") }}</p>
+    </header>
+    
+    {% if items_by_date %}
+        {% for date_key, items in items_by_date.items()|sort %}
+            <div class="print-date-section">
+                <h2>
+                    {% if date_key %}
+                        {{ date_key.strftime('%A, %B %d, %Y') }}
+                    {% else %}
+                        Date TBD
+                    {% endif %}
+                </h2>
+                
+                <table class="print-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Title</th>
+                            <th>Location</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr class="source-{{ item.source }}">
+                                <td>{{ item.start_time or '' }}</td>
+                                <td>{{ item.title or 'Untitled' }}</td>
+                                <td>{{ item.location or item.space or '' }}</td>
+                                <td>{{ item.source }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No events or reservations found.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

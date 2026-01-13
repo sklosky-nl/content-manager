@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Labs Events & Reservations - Master Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .qr-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .qr-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .qr-item img {
+            max-width: 200px;
+            height: auto;
+            margin: 10px 0;
+        }
+        .links-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .links-section h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .link-group {
+            margin: 15px 0;
+        }
+        .link-group h3 {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .link-group a {
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+            padding: 8px 15px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .link-group a:hover {
+            background: #0056b3;
+        }
+        .docs-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        .docs-section h2 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        .docs-section code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        .docs-section pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #dee2e6;
+        }
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .param-table th,
+        .param-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .param-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #495057;
+        }
+        .param-table tr:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nova Labs Events & Reservations</h1>
+    
+    <div style="background: #e7f3ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #007bff;">
+        <strong>💡 Custom Views:</strong> Use URL query parameters to create custom filtered views. 
+        <a href="#query-params-docs" style="color: #007bff; text-decoration: underline; font-weight: bold;">Learn more →</a>
+    </div>
+    
+    <div class="summary">
+        <h2>Data Summary</h2>
+        <p><strong>Events (Wild Apricot):</strong> {{ events_count }}</p>
+        <p><strong>Reservations (Skedda):</strong> {{ reservations_count }}</p>
+        <p><strong>Total Items:</strong> {{ events_count + reservations_count }}</p>
+    </div>
+    
+    <div class="qr-section">
+        <div class="qr-item">
+            <h3>Today - Kiosk</h3>
+            <img src="{{ qr_codes.today_kiosk }}" alt="QR Code: Today Kiosk">
+            <p><a href="{{ base_url }}/display?range=today&format=kiosk">View Page</a></p>
+        </div>
+        <div class="qr-item">
+            <h3>This Week - Desktop</h3>
+            <img src="{{ qr_codes.this_week_desktop }}" alt="QR Code: This Week Desktop">
+            <p><a href="{{ base_url }}/display?range=this-week&format=desktop">View Page</a></p>
+        </div>
+        <div class="qr-item">
+            <h3>All - Mobile</h3>
+            <img src="{{ qr_codes.all_mobile }}" alt="QR Code: All Mobile">
+            <p><a href="{{ base_url }}/display?format=mobile">View Page</a></p>
+        </div>
+    </div>
+    
+    <div class="links-section">
+        <h2>Quick Links</h2>
+        
+        <div class="link-group">
+            <h3>By Date Range</h3>
+            <a href="{{ base_url }}/display?range=today">Today</a>
+            <a href="{{ base_url }}/display?range=tomorrow">Tomorrow</a>
+            <a href="{{ base_url }}/display?range=this-week">This Week</a>
+            <a href="{{ base_url }}/display?range=next-week">Next Week</a>
+            <a href="{{ base_url }}/display?range=next-10-days">Next 10 Days</a>
+            <a href="{{ base_url }}/display?range=this-month">This Month</a>
+        </div>
+        
+        <div class="link-group">
+            <h3>By Format</h3>
+            <a href="{{ base_url }}/display?format=kiosk">Kiosk</a>
+            <a href="{{ base_url }}/display?format=mobile">Mobile</a>
+            <a href="{{ base_url }}/display?format=desktop">Desktop</a>
+            <a href="{{ base_url }}/display?format=print">Print</a>
+        </div>
+        
+        <div class="link-group">
+            <h3>By Source</h3>
+            <a href="{{ base_url }}/display?source=all">All Sources</a>
+            <a href="{{ base_url }}/display?source=wild-apricot">Wild Apricot Only</a>
+            <a href="{{ base_url }}/display?source=skedda">Skedda Only</a>
+        </div>
+        
+        <div class="link-group">
+            <h3>Combined Examples</h3>
+            <a href="{{ base_url }}/display?range=today&format=kiosk&source=all">Today - Kiosk</a>
+            <a href="{{ base_url }}/display?range=this-week&location=Events Bay&format=desktop">This Week - Events Bay</a>
+            <a href="{{ base_url }}/display?range=today&source=skedda&format=mobile">Today - Skedda - Mobile</a>
+        </div>
+    </div>
+    
+    <div id="query-params-docs" class="docs-section">
+        <h2>📖 Using URL Query Parameters</h2>
+        <p>You can customize views and filter data by adding query parameters to the <code>/display</code> URL. Multiple parameters can be combined using <code>&</code>.</p>
+        
+        <h3>Available Parameters</h3>
+        <table class="param-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Values</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>range</code></td>
+                    <td><code>today</code>, <code>tomorrow</code>, <code>this-week</code>, <code>next-week</code>, <code>next-10-days</code>, <code>this-month</code>, <code>next-month</code></td>
+                    <td>Filter by predefined date range</td>
+                    <td><code>?range=today</code></td>
+                </tr>
+                <tr>
+                    <td><code>date</code></td>
+                    <td>YYYY-MM-DD or MM/DD/YYYY</td>
+                    <td>Show events for a specific date</td>
+                    <td><code>?date=2026-01-15</code></td>
+                </tr>
+                <tr>
+                    <td><code>start</code></td>
+                    <td>YYYY-MM-DD or MM/DD/YYYY</td>
+                    <td>Start date for custom range (use with <code>end</code>)</td>
+                    <td><code>?start=2026-01-01&end=2026-01-31</code></td>
+                </tr>
+                <tr>
+                    <td><code>end</code></td>
+                    <td>YYYY-MM-DD or MM/DD/YYYY</td>
+                    <td>End date for custom range (use with <code>start</code>)</td>
+                    <td><code>?start=2026-01-01&end=2026-01-31</code></td>
+                </tr>
+                <tr>
+                    <td><code>location</code> or <code>space</code></td>
+                    <td>Location name (partial match)</td>
+                    <td>Filter by location/space name</td>
+                    <td><code>?location=Events Bay</code></td>
+                </tr>
+                <tr>
+                    <td><code>source</code></td>
+                    <td><code>all</code>, <code>wild-apricot</code>, <code>skedda</code></td>
+                    <td>Filter by data source</td>
+                    <td><code>?source=skedda</code></td>
+                </tr>
+                <tr>
+                    <td><code>format</code></td>
+                    <td><code>desktop</code>, <code>mobile</code>, <code>kiosk</code>, <code>print</code></td>
+                    <td>Display format/layout</td>
+                    <td><code>?format=kiosk</code></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Example URLs</h3>
+        <pre>{{ base_url }}/display?range=next-week&format=desktop
+{{ base_url }}/display?range=next-10-days&format=kiosk
+{{ base_url }}/display?date=2026-01-15&location=Events Bay
+{{ base_url }}/display?start=2026-01-01&end=2026-01-31&source=skedda&format=kiosk
+{{ base_url }}/display?range=today&format=mobile&source=wild-apricot</pre>
+        
+        <h3>Tips</h3>
+        <ul>
+            <li>Parameters are case-insensitive (except for date formats)</li>
+            <li>You can combine multiple parameters: <code>?range=today&format=kiosk&source=all</code></li>
+            <li>Location/space filtering uses partial matching (e.g., "Events" matches "Events Bay")</li>
+            <li>If no date parameters are provided, all future events are shown by default</li>
+            <li>The QR code on each display page shows the current URL with all parameters</li>
+        </ul>
+    </div>
+</body>
+</html>
+

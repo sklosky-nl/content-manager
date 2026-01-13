@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Events & Reservations - Desktop View{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/desktop.css') }}">
+{% endblock %}
+
+{% block content %}
+{% if qr_code %}
+<div class="qr-code-float">
+    <div class="qr-code-float-content">
+        <h4>QR Code</h4>
+        <img src="{{ qr_code }}" alt="QR Code" class="qr-image">
+    </div>
+</div>
+{% endif %}
+
+<div class="container">
+    <header>
+        <h1>Nova Labs Events & Reservations</h1>
+        <div class="filters">
+            <a href="{{ base_url }}/">← Back to Master Page</a>
+        </div>
+    </header>
+    
+    {% if items_by_date %}
+        {% for date_key, items in items_by_date.items()|sort %}
+            <div class="date-section">
+                <h2 class="date-header">
+                    {% if date_key %}
+                        {{ date_key.strftime('%A, %B %d, %Y') }}
+                    {% else %}
+                        Date TBD
+                    {% endif %}
+                </h2>
+                
+                {% for item in items %}
+                    <div class="item-card source-{{ item.source }}">
+                        <div class="item-header">
+                            <h3>{{ item.title or 'Untitled' }}</h3>
+                            <span class="source-badge">{{ item.source }}</span>
+                        </div>
+                        
+                        <div class="item-details">
+                            {% if item.location or item.space %}
+                                <p><strong>Location:</strong> {{ item.location or item.space }}</p>
+                            {% endif %}
+                            
+                            {% if item.start_date or item.start_time %}
+                                <p><strong>Time:</strong> 
+                                    {% if item.start_date %}
+                                        {{ item.start_date }}
+                                    {% endif %}
+                                    {% if item.start_time %}
+                                        at {{ item.start_time }}
+                                    {% endif %}
+                                    {% if item.end_time %}
+                                        - {{ item.end_time }}
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+                            
+                            {% if item.access_status and item.access_status != 'unknown' %}
+                                <p><strong>Access:</strong> {{ item.access_status }}</p>
+                            {% endif %}
+                            
+                            {% if item.capacity or item.enrollment %}
+                                <p><strong>Capacity:</strong> 
+                                    {% if item.enrollment %}{{ item.enrollment }}{% endif %}
+                                    {% if item.capacity %}/ {{ item.capacity }}{% endif %}
+                                </p>
+                            {% endif %}
+                            
+                            {% if item.description %}
+                                <p class="description">{{ item.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-items">
+            <p>No events or reservations found for the selected filters.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+

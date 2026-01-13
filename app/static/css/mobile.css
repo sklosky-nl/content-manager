@@ -1,0 +1,110 @@
+/* Mobile format - responsive, touch-friendly */
+body.format-mobile {
+    background: #f5f5f5;
+}
+
+.mobile-container {
+    max-width: 100%;
+    padding: 10px;
+    padding-right: 140px; /* Make room for floating QR code on mobile */
+}
+
+/* Floating QR code on mobile (smaller, bottom right) */
+.mobile-qr-float {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    z-index: 1000;
+    width: 120px;
+}
+
+.mobile-qr-float-content {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+/* Hide QR code on very small mobile screens */
+@media (max-width: 480px) {
+    .mobile-qr-float {
+        display: none;
+    }
+    .mobile-container {
+        padding-right: 10px;
+    }
+}
+
+.mobile-header {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    margin: -10px -10px 20px -10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-header h1 {
+    font-size: 1.3em;
+    margin: 0;
+}
+
+.home-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.qr-image {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.mobile-date-section {
+    margin: 20px 0;
+}
+
+.mobile-date-header {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+.mobile-item {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.mobile-item.source-skedda {
+    border-left-color: #7b1fa2;
+}
+
+.mobile-item h3 {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.mobile-item p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.mobile-no-items {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+

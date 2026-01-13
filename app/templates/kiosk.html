@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Events & Reservations - Kiosk View{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/kiosk.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="kiosk-container">
+    <header class="kiosk-header">
+        <h1>Nova Labs Events & Reservations</h1>
+        <div class="timestamp">Last updated: <span id="timestamp"></span></div>
+    </header>
+    
+    {% if items_by_date %}
+        {% for date_key, items in items_by_date.items()|sort %}
+            <div class="kiosk-date-section">
+                <h2 class="kiosk-date-header">
+                    {% if date_key %}
+                        {{ date_key.strftime('%A, %B %d') }}
+                    {% else %}
+                        Upcoming
+                    {% endif %}
+                </h2>
+                
+                <div class="kiosk-items">
+                    {% for item in items %}
+                        <div class="kiosk-item source-{{ item.source }}">
+                            <div class="kiosk-item-title">{{ item.title or 'Event' }}</div>
+                            <div class="kiosk-item-details">
+                                {% if item.location or item.space %}
+                                    <span class="location">{{ item.location or item.space }}</span>
+                                {% endif %}
+                                {% if item.start_time %}
+                                    <span class="time">{{ item.start_time }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="kiosk-no-items">
+            <p>No events or reservations scheduled.</p>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    // Update timestamp
+    document.getElementById('timestamp').textContent = new Date().toLocaleString();
+    
+    // Auto-refresh every 5 minutes (300000 ms)
+    if (window.location.search.includes('format=kiosk')) {
+        setTimeout(function() {
+            window.location.reload();
+        }, 300000);
+    }
+</script>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  content-manager:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: content-manager
+    ports:
+      - "8000:8000"
+    environment:
+      - WILD_APRICOT_URL=http://localhost/events/test/wild-apricot.html
+      - SKEDDA_ICAL_URL=http://localhost/events/test/bookings.ics
+      - FETCH_TIMEOUT=10
+      - FILTER_PAST_EVENTS=true
+      - LOG_LEVEL=INFO
+      - DEBUG=false
+    restart: unless-stopped
+    networks:
+      - content-manager-net
+
+networks:
+  content-manager-net:
+    driver: bridge
+

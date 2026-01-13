@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Events & Reservations - Mobile View{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
+{% endblock %}
+
+{% block content %}
+{% if qr_code %}
+<div class="mobile-qr-float">
+    <div class="mobile-qr-float-content">
+        <img src="{{ qr_code }}" alt="QR Code" class="qr-image">
+    </div>
+</div>
+{% endif %}
+
+<div class="mobile-container">
+    <header class="mobile-header">
+        <h1>Nova Labs Events</h1>
+        <a href="{{ base_url }}/" class="home-link">Home</a>
+    </header>
+    
+    {% if items_by_date %}
+        {% for date_key, items in items_by_date.items()|sort %}
+            <div class="mobile-date-section">
+                <h2 class="mobile-date-header">
+                    {% if date_key %}
+                        {{ date_key.strftime('%a, %b %d') }}
+                    {% else %}
+                        Upcoming
+                    {% endif %}
+                </h2>
+                
+                {% for item in items %}
+                    <div class="mobile-item source-{{ item.source }}">
+                        <h3>{{ item.title or 'Event' }}</h3>
+                        {% if item.location or item.space %}
+                            <p class="location">📍 {{ item.location or item.space }}</p>
+                        {% endif %}
+                        {% if item.start_time %}
+                            <p class="time">🕐 {{ item.start_time }}</p>
+                        {% endif %}
+                        {% if item.access_status and item.access_status != 'unknown' %}
+                            <p class="access">🔒 {{ item.access_status }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="mobile-no-items">
+            <p>No events found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,90 @@
+/* Kiosk format - large fonts, high contrast */
+body.format-kiosk {
+    background: #000;
+    color: #fff;
+    font-size: 24px;
+}
+
+.kiosk-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.kiosk-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 4px solid #fff;
+    padding-bottom: 20px;
+}
+
+.kiosk-header h1 {
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.timestamp {
+    font-size: 1.2em;
+    color: #ccc;
+}
+
+.kiosk-date-section {
+    margin: 40px 0;
+}
+
+.kiosk-date-header {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+}
+
+.kiosk-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.kiosk-item {
+    background: #1a1a1a;
+    border: 3px solid #fff;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.kiosk-item.source-skedda {
+    border-color: #9c27b0;
+}
+
+.kiosk-item-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.kiosk-item-details {
+    font-size: 1.2em;
+    color: #ccc;
+}
+
+.kiosk-item-details .location {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.kiosk-item-details .time {
+    display: block;
+    color: #fff;
+    font-weight: bold;
+}
+
+.kiosk-no-items {
+    text-align: center;
+    padding: 60px;
+    font-size: 2em;
+    color: #ccc;
+}
+
